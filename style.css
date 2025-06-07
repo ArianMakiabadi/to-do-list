@@ -18,3 +18,8 @@
   --mainRed: #db2777;
   --bodyColor: #f6f6f6;
 }
+
+body {
+  color: var(--mainBlack);
+  background-color: var(--bodyColor);
+}
