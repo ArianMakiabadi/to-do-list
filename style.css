@@ -4,3 +4,17 @@
   box-sizing: border-box;
   list-style: none;
 }
+
+/*  VARIABLES : */
+:root {
+  --primaryColor: #6d28d9;
+  --secondaryColor: #ede9fe;
+  --mainWhite: #fff;
+  --mainBlack: #222;
+  --mainGrey: #7c7c7c;
+  --secondayGrey: #ccc;
+  --mainSpacing: 0.1rem;
+  --mainTransition: all 0.3s linear;
+  --mainRed: #db2777;
+  --bodyColor: #f6f6f6;
+}
