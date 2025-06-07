@@ -23,3 +23,10 @@ body {
   color: var(--mainBlack);
   background-color: var(--bodyColor);
 }
+
+header {
+  min-height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
