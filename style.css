@@ -31,6 +31,12 @@ header {
   justify-content: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 form input,
 form button {
   border: none;
