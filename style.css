@@ -62,3 +62,14 @@ form {
 form input {
   flex: 1;
 }
+
+form button {
+  color: var(--primaryColor);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+form button:hover {
+  background-color: var(--primaryColor);
+  color: var(--mainWhite);
+}
