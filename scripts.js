@@ -5,35 +5,28 @@ const todos = [];
 const todoInput = document.querySelector(".todo-input");
 const todoForm = document.querySelector(".todo-form");
 
-todoForm.addEventListener("submit", (e) => {
+todoForm.addEventListener("submit", addNewTodo);
+
+function addNewTodo(e) {
   e.preventDefault();
-  todos.push(createTodo(todoInput.value));
-  console.log(todos);
 
-  addTodo(todos);
-
-  todoInput.value = "";
-});
-
-//? creating todos
-
-function createTodo(title) {
+  //? creating todo
   const now = new Date();
   const date = `${now.getFullYear()}-${
     now.getMonth() + 1
   }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
-  return {
-    todo__title: title,
+  const newTodo = {
+    todo__title: todoInput.value,
     createdAt: date,
     id: new Date().getTime(),
     iscompleted: false,
   };
-}
 
-//? adding todos into DOM
-function addTodo(todosArray) {
+  todos.push(newTodo);
+
+  //? adding todos to DOM
   let todoItem = "";
-  todosArray.forEach((todo) => {
+  todos.forEach((todo) => {
     const todoList = document.querySelector(".todolist");
     todoItem += `<li class="todo">
                   <p class="todo__title">${todo.todo__title}</p>
@@ -47,4 +40,6 @@ function addTodo(todosArray) {
                 </li>`;
     todoList.innerHTML = todoItem;
   });
+
+  todoInput.value = "";
 }
