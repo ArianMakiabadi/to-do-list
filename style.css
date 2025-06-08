@@ -123,7 +123,7 @@ select {
   margin-bottom: 1rem;
 }
 
-.todo .todo-title {
+.todo .todo__title {
   color: var(--primaryColor);
   font-weight: bold;
   flex: 1;
