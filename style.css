@@ -77,3 +77,24 @@ form button:hover {
   background-color: var(--primaryColor);
   color: var(--mainWhite);
 }
+
+select {
+  appearance: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 1rem;
+  color: var(--primaryColor);
+}
+
+.select {
+  margin-left: 1rem;
+  background-color: var(--mainWhite);
+  cursor: pointer;
+  width: 10rem;
+  position: relative;
+  border: 2px solid var(--secondayGrey);
+  font-weight: bold;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
