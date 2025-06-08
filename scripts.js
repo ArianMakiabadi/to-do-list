@@ -4,6 +4,7 @@ const todos = [];
 
 const todoInput = document.querySelector(".todo-input");
 const todoForm = document.querySelector(".todo-form");
+const todoList = document.querySelector(".todolist");
 
 todoForm.addEventListener("submit", addNewTodo);
 
@@ -25,9 +26,12 @@ function addNewTodo(e) {
   todos.push(newTodo);
 
   //? adding todos to DOM
+  renderTodos(todos);
+}
+
+function renderTodos(todos) {
   let todoItem = "";
   todos.forEach((todo) => {
-    const todoList = document.querySelector(".todolist");
     todoItem += `<li class="todo">
                   <p class="todo__title">${todo.todo__title}</p>
                   <span class="createdAt">${todo.createdAt}</span>
@@ -38,8 +42,39 @@ function addNewTodo(e) {
                     <i class="far fa-trash-alt"></i>
                   </button>
                 </li>`;
-    todoList.innerHTML = todoItem;
   });
 
+  todoList.innerHTML = todoItem;
   todoInput.value = "";
+}
+
+//? filtering todos
+const selectedFilter = document.querySelector(".filter-todos");
+
+selectedFilter.addEventListener("change", filterTodos);
+
+function filterTodos(e) {
+  const filter = e.target.value;
+  switch (filter) {
+    case "all": {
+      renderTodos(todos);
+      break;
+    }
+    case "completed": {
+      const filteredTodos = todos.filter((t) => t.iscompleted);
+      console.log(filteredTodos);
+      renderTodos(filteredTodos);
+      break;
+    }
+    case "incomplete": {
+      const filteredTodos = todos.filter((t) => !t.iscompleted);
+      console.log(filteredTodos);
+      renderTodos(filteredTodos);
+      break;
+    }
+    default: {
+      renderTodos(todos);
+      break;
+    }
+  }
 }
