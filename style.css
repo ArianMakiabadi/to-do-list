@@ -40,6 +40,10 @@ header {
   justify-content: flex-start;
 }
 
+.form-container {
+  display: flex;
+}
+
 form input,
 form button {
   border: none;
