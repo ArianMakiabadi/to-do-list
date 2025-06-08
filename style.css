@@ -44,6 +44,11 @@ header {
   display: flex;
 }
 
+.todo-container {
+  margin-top: 1rem;
+  width: 25rem;
+}
+
 form input,
 form button {
   border: none;
@@ -107,4 +112,29 @@ select {
   padding: 1rem;
   color: var(--primaryColor);
   pointer-events: none;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  background-color: var(--mainWhite);
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.todo .todo-title {
+  color: var(--primaryColor);
+  font-weight: bold;
+  flex: 1;
+}
+
+.todo button {
+  display: block;
+  font-size: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: transparent;
+  text-shadow: none;
+  border: none;
 }
