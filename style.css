@@ -129,6 +129,10 @@ select {
   flex: 1;
 }
 
+button > i {
+  pointer-events: none;
+}
+
 .todo button {
   display: block;
   font-size: 1rem;
