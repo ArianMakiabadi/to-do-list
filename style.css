@@ -90,11 +90,11 @@ select {
   width: 100%;
   padding: 1rem;
   color: var(--primaryColor);
+  background-color: var(--mainWhite);
 }
 
 .select {
   margin-left: 1rem;
-  background-color: var(--mainWhite);
   cursor: pointer;
   width: 10rem;
   position: relative;
