@@ -98,3 +98,13 @@ select {
   border-radius: 0.5rem;
   overflow: hidden;
 }
+
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  color: var(--primaryColor);
+  pointer-events: none;
+}
