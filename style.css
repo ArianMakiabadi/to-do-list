@@ -58,3 +58,7 @@ form {
   justify-content: space-between;
   overflow: hidden;
 }
+
+form input {
+  flex: 1;
+}
