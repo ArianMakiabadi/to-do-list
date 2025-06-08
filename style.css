@@ -138,3 +138,10 @@ select {
   text-shadow: none;
   border: none;
 }
+
+.fa-trash-alt {
+  color: var(--mainRed);
+}
+.fa-check {
+  color: var(--primaryColor);
+}
