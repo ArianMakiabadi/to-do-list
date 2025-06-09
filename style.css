@@ -12,7 +12,7 @@
   --mainWhite: #fff;
   --mainBlack: #222;
   --mainGrey: #7c7c7c;
-  --secondayGrey: #ccc;
+  --secondaryGrey: #ccc;
   --mainSpacing: 0.1rem;
   --mainTransition: all 0.3s linear;
   --mainRed: #db2777;
@@ -40,11 +40,11 @@ header {
   justify-content: flex-start;
 }
 
-.form-container {
+.todo__form-container {
   display: flex;
 }
 
-.todo-container {
+.todo__container {
   margin-top: 1rem;
   width: 25rem;
 }
@@ -53,7 +53,6 @@ form input,
 form button {
   border: none;
   outline: none;
-  background-color: none;
   font-size: 1rem;
   padding: 0.5rem;
 }
@@ -61,7 +60,7 @@ form button {
 form {
   width: 25rem;
   background-color: var(--mainWhite);
-  border: 2px solid var(--secondayGrey);
+  border: 2px solid var(--secondaryGrey);
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
@@ -93,18 +92,18 @@ select {
   background-color: var(--mainWhite);
 }
 
-.select {
+.todo__select-wrapper {
   margin-left: 1rem;
   cursor: pointer;
   width: 10rem;
   position: relative;
-  border: 2px solid var(--secondayGrey);
+  border: 2px solid var(--secondaryGrey);
   font-weight: bold;
   border-radius: 0.5rem;
   overflow: hidden;
 }
 
-.select::after {
+.todo__select-wrapper::after {
   content: "\25BC";
   position: absolute;
   top: 0;

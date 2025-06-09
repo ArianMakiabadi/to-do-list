@@ -1,10 +1,10 @@
 const todos = [];
 
 //! DOM Elements
-const todoInput = document.querySelector(".todo-input");
-const todoForm = document.querySelector(".todo-form");
-const todoList = document.querySelector(".todolist");
-const filterSelect = document.querySelector(".filter-todos");
+const todoInput = document.querySelector(".todo__input");
+const todoForm = document.querySelector(".todo__form");
+const todoList = document.querySelector(".todo__list");
+const filterSelect = document.querySelector(".todo__filter");
 
 //! Event Listeners
 todoForm.addEventListener("submit", handleAddTodo);
