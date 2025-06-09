@@ -1,4 +1,5 @@
-const todos = [];
+//! global array to store all the todos
+let todos = [];
 
 //! DOM Elements
 const todoInput = document.querySelector(".todo__input");
@@ -17,7 +18,9 @@ function handleAddTodo(e) {
 
   const newTodo = createTodo(todoInput.value.trim());
   todos.push(newTodo);
+
   renderTodos(todos);
+
   clearInput();
 }
 
@@ -36,6 +39,13 @@ function handleFilterChange(e) {
   renderTodos(filtered);
 }
 
+function handlerRemoveTodo(e) {
+  const todoId = Number(e.target.dataset.todo__id);
+  todos = todos.filter((todo) => todo.id !== todoId);
+
+  renderTodos(todos);
+}
+
 //! Helpers
 function createTodo(title) {
   return {
@@ -48,6 +58,7 @@ function createTodo(title) {
 
 function renderTodos(todoArray) {
   todoList.innerHTML = todoArray.map((todo) => generateTodoHTML(todo)).join("");
+  attachRemoveListeners(); // has to be added after each render
 }
 
 function generateTodoHTML(todo) {
@@ -55,10 +66,10 @@ function generateTodoHTML(todo) {
     <li class="todo">
       <p class="todo__title">${todo.title}</p>
       <span class="createdAt">${todo.createdAt}</span>
-      <button class="todo__check">
+      <button class="todo__check" data-todo__id=${todo.id}>
         <i class="fa-solid fa-check"></i>
       </button>
-      <button class="todo__remove">
+      <button class="todo__remove" data-todo__id=${todo.id}>
         <i class="far fa-trash-alt"></i>
       </button>
     </li>
@@ -67,4 +78,9 @@ function generateTodoHTML(todo) {
 
 function clearInput() {
   todoInput.value = "";
+}
+
+function attachRemoveListeners() {
+  const removeBtns = document.querySelectorAll(".todo__remove");
+  removeBtns.forEach((btn) => btn.addEventListener("click", handlerRemoveTodo));
 }
