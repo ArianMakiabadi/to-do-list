@@ -1,5 +1,6 @@
-//! global array to store all the todos
+//! global variables
 let todos = [];
+let filterValue = "all";
 
 //! DOM Elements
 const todoInput = document.querySelector(".todo__input");
@@ -9,7 +10,15 @@ const filterSelect = document.querySelector(".todo__filter");
 
 //! Event Listeners
 todoForm.addEventListener("submit", handleAddTodo);
-filterSelect.addEventListener("change", handleFilterChange);
+filterSelect.addEventListener("change", (e) => {
+  filterValue = e.target.value;
+  handleFilter();
+});
+
+// to reset the filter after each reload
+window.addEventListener("DOMContentLoaded", () => {
+  filterSelect.value = "all";
+});
 
 //! Handlers
 function handleAddTodo(e) {
@@ -19,18 +28,17 @@ function handleAddTodo(e) {
   const newTodo = createTodo(todoInput.value.trim());
   todos.push(newTodo);
 
-  renderTodos(todos);
+  handleFilter();
 
   clearInput();
 }
 
-function handleFilterChange(e) {
-  const filter = e.target.value;
+function handleFilter() {
   let filtered = [];
 
-  if (filter === "completed") {
+  if (filterValue === "completed") {
     filtered = todos.filter((todo) => todo.isCompleted);
-  } else if (filter === "incomplete") {
+  } else if (filterValue === "incomplete") {
     filtered = todos.filter((todo) => !todo.isCompleted);
   } else {
     filtered = todos;
@@ -43,14 +51,15 @@ function handlerRemoveTodo(e) {
   const todoId = Number(e.target.dataset.todo__id);
   todos = todos.filter((todo) => todo.id !== todoId);
 
-  renderTodos(todos);
+  handleFilter();
 }
 
 function handlerCheckTodo(e) {
   const todoId = Number(e.target.dataset.todo__id);
   const checkedTodo = todos.find((t) => t.id === todoId);
   checkedTodo.isCompleted = !checkedTodo.isCompleted;
-  renderTodos(todos);
+
+  handleFilter();
 }
 
 //! Helpers
