@@ -1,80 +1,70 @@
 const todos = [];
 
-//? reading the data from our form
-
+//! DOM Elements
 const todoInput = document.querySelector(".todo-input");
 const todoForm = document.querySelector(".todo-form");
 const todoList = document.querySelector(".todolist");
+const filterSelect = document.querySelector(".filter-todos");
 
-todoForm.addEventListener("submit", addNewTodo);
+//! Event Listeners
+todoForm.addEventListener("submit", handleAddTodo);
+filterSelect.addEventListener("change", handleFilterChange);
 
-function addNewTodo(e) {
+//! Handlers
+function handleAddTodo(e) {
   e.preventDefault();
+  if (!todoInput.value.trim()) return;
 
-  //? creating todo
-  const now = new Date();
-  const date = `${now.getFullYear()}-${
-    now.getMonth() + 1
-  }-${now.getDate()} ${now.getHours()}:${now.getMinutes()}`;
-  const newTodo = {
-    todo__title: todoInput.value,
-    createdAt: date,
-    id: new Date().getTime(),
-    iscompleted: false,
-  };
-
+  const newTodo = createTodo(todoInput.value.trim());
   todos.push(newTodo);
-
-  //? adding todos to DOM
   renderTodos(todos);
+  clearInput();
 }
 
-function renderTodos(todos) {
-  let todoItem = "";
-  todos.forEach((todo) => {
-    todoItem += `<li class="todo">
-                  <p class="todo__title">${todo.todo__title}</p>
-                  <span class="createdAt">${todo.createdAt}</span>
-                  <button class="todo__check">
-                    <i class="fa-solid fa-check"></i>
-                  </button>
-                  <button class="todo__remove">
-                    <i class="far fa-trash-alt"></i>
-                  </button>
-                </li>`;
-  });
-
-  todoList.innerHTML = todoItem;
-  todoInput.value = "";
-}
-
-//? filtering todos
-const selectedFilter = document.querySelector(".filter-todos");
-
-selectedFilter.addEventListener("change", filterTodos);
-
-function filterTodos(e) {
+function handleFilterChange(e) {
   const filter = e.target.value;
-  switch (filter) {
-    case "all": {
-      renderTodos(todos);
-      break;
-    }
-    case "completed": {
-      const filteredTodos = todos.filter((t) => t.iscompleted);
-      console.log(filteredTodos);
-      renderTodos(filteredTodos);
-      break;
-    }
-    case "incomplete": {
-      const filteredTodos = todos.filter((t) => !t.iscompleted);
-      console.log(filteredTodos);
-      renderTodos(filteredTodos);
-      break;
-    }
-    default: {
-      renderTodos(todos);
-      break;
-    }
+  let filtered = [];
+
+  if (filter === "completed") {
+    filtered = todos.filter((todo) => todo.isCompleted);
+  } else if (filter === "incomplete") {
+    filtered = todos.filter((todo) => !todo.isCompleted);
+  } else {
+    filtered = todos;
   }
+
+  renderTodos(filtered);
+}
+
+//! Helpers
+function createTodo(title) {
+  return {
+    id: Date.now(),
+    title,
+    createdAt: new Date().toLocaleString(),
+    isCompleted: false,
+  };
+}
+
+function renderTodos(todoArray) {
+  todoList.innerHTML = todoArray.map((todo) => generateTodoHTML(todo)).join("");
+}
+
+function generateTodoHTML(todo) {
+  return `
+    <li class="todo">
+      <p class="todo__title">${todo.title}</p>
+      <span class="createdAt">${todo.createdAt}</span>
+      <button class="todo__check">
+        <i class="fa-solid fa-check"></i>
+      </button>
+      <button class="todo__remove">
+        <i class="far fa-trash-alt"></i>
+      </button>
+    </li>
+  `;
+}
+
+function clearInput() {
+  todoInput.value = "";
 }
