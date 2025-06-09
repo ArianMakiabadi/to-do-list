@@ -46,6 +46,13 @@ function handlerRemoveTodo(e) {
   renderTodos(todos);
 }
 
+function handlerCheckTodo(e) {
+  const todoId = Number(e.target.dataset.todo__id);
+  const checkedTodo = todos.find((t) => t.id === todoId);
+  checkedTodo.isCompleted = !checkedTodo.isCompleted;
+  renderTodos(todos);
+}
+
 //! Helpers
 function createTodo(title) {
   return {
@@ -59,12 +66,15 @@ function createTodo(title) {
 function renderTodos(todoArray) {
   todoList.innerHTML = todoArray.map((todo) => generateTodoHTML(todo)).join("");
   attachRemoveListeners(); // has to be added after each render
+  attachCheckedListeners(); // has to be added after each render
 }
 
 function generateTodoHTML(todo) {
   return `
     <li class="todo">
-      <p class="todo__title">${todo.title}</p>
+      <p class="todo__title ${todo.isCompleted ? "completed" : ""}">${
+    todo.title
+  }</p>
       <span class="createdAt">${todo.createdAt}</span>
       <button class="todo__check" data-todo__id=${todo.id}>
         <i class="fa-solid fa-check"></i>
@@ -83,4 +93,9 @@ function clearInput() {
 function attachRemoveListeners() {
   const removeBtns = document.querySelectorAll(".todo__remove");
   removeBtns.forEach((btn) => btn.addEventListener("click", handlerRemoveTodo));
+}
+
+function attachCheckedListeners() {
+  const checkedBtns = document.querySelectorAll(".todo__check");
+  checkedBtns.forEach((btn) => btn.addEventListener("click", handlerCheckTodo));
 }

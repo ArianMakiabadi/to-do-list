@@ -128,6 +128,11 @@ select {
   flex: 1;
 }
 
+.todo__title.completed {
+  color: var(--mainGrey);
+  text-decoration: line-through;
+}
+
 button > i {
   pointer-events: none;
 }
