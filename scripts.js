@@ -1,5 +1,4 @@
 //! global variables
-let todos = [];
 let filterValue = "all";
 
 //! DOM Elements
@@ -15,9 +14,13 @@ filterSelect.addEventListener("change", (e) => {
   handleFilter();
 });
 
-// to reset the filter after each reload
 window.addEventListener("DOMContentLoaded", () => {
+  // to reset the filter after each reload
   filterSelect.value = "all";
+
+  // getting data from local storage
+  const todos = getAllTodos();
+  renderTodos(todos);
 });
 
 //! Handlers
@@ -26,7 +29,7 @@ function handleAddTodo(e) {
   if (!todoInput.value.trim()) return;
 
   const newTodo = createTodo(todoInput.value.trim());
-  todos.push(newTodo);
+  saveTodo(newTodo);
 
   handleFilter();
 
@@ -35,6 +38,7 @@ function handleAddTodo(e) {
 
 function handleFilter() {
   let filtered = [];
+  const todos = getAllTodos();
 
   if (filterValue === "completed") {
     filtered = todos.filter((todo) => todo.isCompleted);
@@ -48,17 +52,21 @@ function handleFilter() {
 }
 
 function handlerRemoveTodo(e) {
+  let todos = getAllTodos();
   const todoId = Number(e.target.dataset.todo__id);
   todos = todos.filter((todo) => todo.id !== todoId);
 
+  saveAllTodos(todos);
   handleFilter();
 }
 
 function handlerCheckTodo(e) {
+  const todos = getAllTodos();
   const todoId = Number(e.target.dataset.todo__id);
   const checkedTodo = todos.find((t) => t.id === todoId);
   checkedTodo.isCompleted = !checkedTodo.isCompleted;
 
+  saveAllTodos(todos);
   handleFilter();
 }
 
@@ -107,4 +115,21 @@ function attachRemoveListeners() {
 function attachCheckedListeners() {
   const checkedBtns = document.querySelectorAll(".todo__check");
   checkedBtns.forEach((btn) => btn.addEventListener("click", handlerCheckTodo));
+}
+
+//! using local storage (for training purposes)
+
+function getAllTodos() {
+  const savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
+  return savedTodos;
+}
+
+function saveTodo(todo) {
+  const savedTodos = getAllTodos();
+  savedTodos.push(todo);
+  saveAllTodos(savedTodos);
+}
+
+function saveAllTodos(todos) {
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
